@@ -440,11 +440,68 @@
             <button class="btn-pdf" onclick="window.print()">
                 <i class="fas fa-file-pdf"></i> Imprimir Planejador Diário (PDF)
             </button>
+            <button class="btn-pdf" onclick="clearData()" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); box-shadow: none; margin-top: 1rem; font-size: 0.9rem; padding: 0.8rem 2rem;">
+                <i class="fas fa-trash-alt"></i> Limpar Dados do Dia
+            </button>
             <footer>
                 &copy; 2024 Mamãe no Comando. Conteúdo exclusivo para alunas do Método Código do Sono Infantil.
             </footer>
         </div>
     </div>
+
+    <script>
+        // Função para salvar dados automaticamente
+        function saveAllData() {
+            const inputs = document.querySelectorAll('input');
+            const data = {};
+            
+            inputs.forEach((input, index) => {
+                data[`input_${index}`] = input.value;
+            });
+
+            // Salva também o campo de observações (contenteditable)
+            const obsField = document.querySelector('[contenteditable="true"]');
+            data['observations'] = obsField.innerHTML;
+
+            localStorage.setItem('planejadorData_6538', JSON.stringify(data));
+        }
+
+        // Função para carregar dados ao abrir a página
+        function loadSavedData() {
+            const savedData = localStorage.getItem('planejadorData_6538');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                const inputs = document.querySelectorAll('input');
+                
+                inputs.forEach((input, index) => {
+                    if (data[`input_${index}`] !== undefined) {
+                        input.value = data[`input_${index}`];
+                    }
+                });
+
+                const obsField = document.querySelector('[contenteditable="true"]');
+                if (data['observations']) {
+                    obsField.innerHTML = data['observations'];
+                }
+            }
+        }
+
+        // Função para limpar tudo
+        function clearData() {
+            if (confirm('Deseja realmente apagar todos os registros do dia?')) {
+                localStorage.removeItem('planejadorData_6538');
+                location.reload();
+            }
+        }
+
+        // Listeners para salvar em tempo real
+        document.addEventListener('input', () => {
+            saveAllData();
+        });
+
+        // Carrega os dados assim que o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', loadSavedData);
+    </script>
 
 </body>
 
