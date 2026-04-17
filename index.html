@@ -342,7 +342,7 @@
             </div>
             <p style="margin-bottom: 2rem; color: #CBD5E1;">A qualidade do sono noturno é construída durante o dia. Use esta tabela para identificar se as janelas de sono estão adequadas.</p>
             
-            <table class="tracker-table">
+            <table class="tracker-table" id="nap-table">
                 <thead>
                     <tr>
                         <th style="width: 25%;">Início</th>
@@ -358,6 +358,10 @@
                     <tr><td><input type="text" placeholder="HH:MM"></td><td><input type="text" placeholder="HH:MM"></td><td><input type="text" placeholder="Ex: 1h20min"></td><td><input type="text" placeholder="Calmo/Irritado"></td></tr>
                 </tbody>
             </table>
+
+            <button onclick="addRow('nap-table')" style="background: rgba(245, 158, 11, 0.1); border: 1px solid var(--primary-gold); color: var(--primary-gold); padding: 0.8rem 1.5rem; border-radius: 12px; margin-top: 1.5rem; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 0.8rem; transition: all 0.3s ease;">
+                <i class="fas fa-plus-circle"></i> + ADICIONAR NOVA SONECA
+            </button>
             
             <div class="info-box">
                 <i class="fas fa-lightbulb"></i>
@@ -404,7 +408,7 @@
                 3. Registro de Despertares Noturnos
             </div>
             
-            <table class="tracker-table">
+            <table class="tracker-table" id="night-table">
                 <thead>
                     <tr>
                         <th style="width: 20%;">Horário</th>
@@ -418,6 +422,10 @@
                     <tr><td><input type="text" placeholder="Ex: 02:45"></td><td><input type="text" placeholder="Fome/Fralda/Susto"></td><td><input type="text" placeholder="Colo/Apenas Shh"></td></tr>
                 </tbody>
             </table>
+
+            <button onclick="addRow('night-table')" style="background: rgba(245, 158, 11, 0.1); border: 1px solid var(--primary-gold); color: var(--primary-gold); padding: 0.8rem 1.5rem; border-radius: 12px; margin-top: 1.5rem; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 0.8rem; transition: all 0.3s ease;">
+                <i class="fas fa-plus-circle"></i> + ADICIONAR NOVO DESPERTAR
+            </button>
 
             <div class="info-box" style="margin-top: 2rem;">
                 <i class="fas fa-info-circle"></i>
@@ -450,38 +458,60 @@
     </div>
 
     <script>
+        // Função para adicionar nova linha dinamicamente
+        function addRow(tableId) {
+            const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const colCount = table.parentNode.rows[0].cells.length;
+
+            for (let i = 0; i < colCount; i++) {
+                const cell = newRow.insertCell(i);
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = tableId === 'nap-table' ? (i === 2 ? 'Ex: 1h20min' : 'HH:MM') : (i === 0 ? 'Ex: 02:45' : '...');
+                if (tableId === 'nap-table' && i === 3) input.placeholder = 'Calmo/Irritado';
+                cell.appendChild(input);
+            }
+            saveAllData(); // Salva a estrutura nova
+        }
+
         // Função para salvar dados automaticamente
         function saveAllData() {
-            const inputs = document.querySelectorAll('input');
-            const data = {};
+            const data = {
+                napsCount: document.getElementById('nap-table').getElementsByTagName('tbody')[0].rows.length,
+                nightsCount: document.getElementById('night-table').getElementsByTagName('tbody')[0].rows.length,
+                inputs: [],
+                observations: document.querySelector('[contenteditable="true"]').innerHTML
+            };
             
-            inputs.forEach((input, index) => {
-                data[`input_${index}`] = input.value;
+            document.querySelectorAll('input').forEach(input => {
+                data.inputs.push(input.value);
             });
 
-            // Salva também o campo de observações (contenteditable)
-            const obsField = document.querySelector('[contenteditable="true"]');
-            data['observations'] = obsField.innerHTML;
-
-            localStorage.setItem('planejadorData_6538', JSON.stringify(data));
+            localStorage.setItem('planejadorData_6538_v2', JSON.stringify(data));
         }
 
         // Função para carregar dados ao abrir a página
         function loadSavedData() {
-            const savedData = localStorage.getItem('planejadorData_6538');
+            const savedData = localStorage.getItem('planejadorData_6538_v2');
             if (savedData) {
                 const data = JSON.parse(savedData);
-                const inputs = document.querySelectorAll('input');
                 
-                inputs.forEach((input, index) => {
-                    if (data[`input_${index}`] !== undefined) {
-                        input.value = data[`input_${index}`];
-                    }
+                // Ajusta o número de linhas primeiro
+                const napTable = document.getElementById('nap-table').getElementsByTagName('tbody')[0];
+                const nightTable = document.getElementById('night-table').getElementsByTagName('tbody')[0];
+
+                while (napTable.rows.length < data.napsCount) addRow('nap-table');
+                while (nightTable.rows.length < data.nightsCount) addRow('night-table');
+
+                // Preenche os valores
+                const inputs = document.querySelectorAll('input');
+                data.inputs.forEach((val, i) => {
+                    if (inputs[i]) inputs[i].value = val;
                 });
 
-                const obsField = document.querySelector('[contenteditable="true"]');
                 if (data['observations']) {
-                    obsField.innerHTML = data['observations'];
+                    document.querySelector('[contenteditable="true"]').innerHTML = data['observations'];
                 }
             }
         }
@@ -489,14 +519,16 @@
         // Função para limpar tudo
         function clearData() {
             if (confirm('Deseja realmente apagar todos os registros do dia?')) {
-                localStorage.removeItem('planejadorData_6538');
+                localStorage.removeItem('planejadorData_6538_v2');
                 location.reload();
             }
         }
 
         // Listeners para salvar em tempo real
-        document.addEventListener('input', () => {
-            saveAllData();
+        document.addEventListener('input', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.hasAttribute('contenteditable')) {
+                saveAllData();
+            }
         });
 
         // Carrega os dados assim que o DOM estiver pronto
