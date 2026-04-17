@@ -52,22 +52,11 @@
             max-width: 900px;
         }
 
-        /* Branding Header */
-        .brand-header {
-            text-align: center;
+        .logo-img {
+            height: 100px;
+            width: auto;
             margin-bottom: 2rem;
-        }
-
-        .brand-name {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: var(--gradient-brand);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            object-fit: contain;
         }
 
         header {
@@ -324,9 +313,8 @@
 <body>
 
     <div class="container">
-        <div class="brand-header">
-            <div class="brand-name">Mamãe no Comando</div>
-            <div style="width: 50px; height: 3px; background: var(--gradient-brand); margin: 0 auto; border-radius: 10px;"></div>
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <img src="logo.png" alt="Mamãe no Comando" class="logo-img">
         </div>
 
         <header>
