@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planejador Mestre de Rotina | MamÃ£e no Comando</title>
+    <title>Planejador Mestre de Rotina | Mamãe no Comando</title>
 
     <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,20 +69,269 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
         }
+
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2.2rem, 7vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Tracking Card Styling */
+        .section-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            padding: 3rem;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(245, 158, 11, 0.25);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), var(--shadow-glow);
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .section-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            flex-shrink: 0;
+        }
+
+        /* Interactive Tracker Table */
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        table.tracker-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .tracker-table th {
+            background: rgba(245, 158, 11, 0.05);
+            padding: 1.2rem;
+            text-align: left;
+            color: var(--primary-gold);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tracker-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        .tracker-table input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .tracker-table input::placeholder {
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Ritual Flow Styling */
+        .ritual-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .ritual-step {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .ritual-step:hover {
+            background: rgba(245, 158, 11, 0.05);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .step-badge {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-brand);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            color: #fff;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Instructions Info */
+        .info-box {
+            background: rgba(245, 158, 11, 0.05);
+            border: 1px dashed rgba(245, 158, 11, 0.3);
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .info-box i {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+        }
+
+        .info-box p {
+            font-size: 0.95rem;
+            color: #CBD5E1;
+            font-style: italic;
+        }
+
+        /* Action Footer */
+        .action-footer {
+            margin-top: 5rem;
+            text-align: center;
+            padding-bottom: 8rem;
+        }
+
+        .btn-pdf {
+            background: var(--gradient-brand);
+            color: #fff;
+            padding: 1.4rem 4rem;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1.2rem;
+            box-shadow: 0 15px 35px rgba(234, 88, 12, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-pdf:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(234, 88, 12, 0.5);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        /* Print Optimization */
+        @media print {
+            * { color: #000 !important; background: transparent !important; box-shadow: none !important; border-color: #000 !important;}
+            body { padding: 0.5cm; background: #fff !important; }
+            .section-card { border: 2.5px solid #000 !important; break-inside: avoid; border-radius: 0; padding: 2rem !important; margin-bottom: 1cm; }
+            .btn-pdf, .brand-header { display: none !important; }
+            h1 { font-size: 2.5rem !important; -webkit-text-fill-color: #000 !important; background: none !important;}
+            .tracker-table { border-radius: 0; border: 1.5px solid #000; }
+            th, td { border: 1px solid #000 !important; padding: 8px; font-size: 10pt; }
+            .ritual-step { border: 1.5px solid #000; border-radius: 0; height: 180px; }
+            .info-box { border: 1.5px dashed #000; background: none; }
+        }
+
+        @media (max-width: 640px) {
+            .section-card { padding: 2rem 1.5rem; }
+            .section-title { font-size: 1.5rem; }
+            .tracker-table th, .tracker-table td { padding: 0.8rem; font-size: 0.8rem; }
+            .ritual-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <div class='brand-header'>
-            <div class='brand-name'>Mamãe no Comando</div>
-            <div style='width: 50px; height: 3px; background: var(--gradient-brand); margin: 0 auto; border-radius: 10px;'></div>
+        <div class="brand-header">
+            <div class="brand-name">Mamãe no Comando</div>
+            <div style="width: 50px; height: 3px; background: var(--gradient-brand); margin: 0 auto; border-radius: 10px;"></div>
         </div>
 
         <header>
             <h1>Planejador Mestre de Rotina</h1>
-            <p class="subtitle">BÃ´nus VIP: Utilize este painel diÃ¡rio para mapear os ciclos de sono e construir a previsibilidade que seu bebÃª precisa para dormir 12h por noite.</p>
+            <p class="subtitle">Bônus VIP: Utilize este painel diário para mapear os ciclos de sono e construir a previsibilidade que seu bebê precisa para dormir 12h por noite.</p>
         </header>
 
         <!-- Section 1: Naps Tracker -->
@@ -91,14 +340,14 @@
                 <div class="section-icon"><i class="fas fa-sun"></i></div>
                 1. Rastreador de Sonecas Diurnas
             </div>
-            <p style="margin-bottom: 2rem; color: #CBD5E1;">A qualidade do sono noturno Ã© construÃ­da durante o dia. Use esta tabela para identificar se as janelas de sono estÃ£o adequadas.</p>
+            <p style="margin-bottom: 2rem; color: #CBD5E1;">A qualidade do sono noturno é construída durante o dia. Use esta tabela para identificar se as janelas de sono estão adequadas.</p>
             
             <table class="tracker-table" id="nap-table">
                 <thead>
                     <tr>
-                        <th style="width: 25%;">InÃ­cio</th>
+                        <th style="width: 25%;">Início</th>
                         <th style="width: 25%;">Fim</th>
-                        <th style="width: 25%;">DuraÃ§Ã£o</th>
+                        <th style="width: 25%;">Duração</th>
                         <th style="width: 25%;">Humor</th>
                     </tr>
                 </thead>
@@ -116,7 +365,7 @@
             
             <div class="info-box">
                 <i class="fas fa-lightbulb"></i>
-                <p>Se o bebÃª acorda irritado apÃ³s 40 minutos, ele provavelmente ainda estÃ¡ cansado e nÃ£o conseguiu transitar entre os ciclos de sono. Tente ajustar o ambiente.</p>
+                <p>Se o bebê acorda irritado após 40 minutos, ele provavelmente ainda está cansado e não conseguiu transitar entre os ciclos de sono. Tente ajustar o ambiente.</p>
             </div>
         </div>
 
@@ -126,28 +375,28 @@
                 <div class="section-icon"><i class="fas fa-star"></i></div>
                 2. Fluxo do Ritual de Ouro
             </div>
-            <p style="margin-bottom: 1.5rem; color: #CBD5E1;">NÃ£o mude a ordem. A previsibilidade reduz os nÃ­veis de cortisol no final do dia.</p>
+            <p style="margin-bottom: 1.5rem; color: #CBD5E1;">Não mude a ordem. A previsibilidade reduz os níveis de cortisol no final do dia.</p>
             
             <div class="ritual-container">
                 <div class="ritual-step">
                     <div class="step-badge">1</div>
                     <div class="step-title">Higiene Sensorial</div>
-                    <div class="step-desc">ReduÃ§Ã£o de luzes e sons 40 min antes do banho.</div>
+                    <div class="step-desc">Redução de luzes e sons 40 min antes do banho.</div>
                 </div>
                 <div class="ritual-step">
                     <div class="step-badge">2</div>
                     <div class="step-title">Hidroterapia</div>
-                    <div class="step-desc">Banho morno (37Â°C) em penumbra absoluta.</div>
+                    <div class="step-desc">Banho morno (37°C) em penumbra absoluta.</div>
                 </div>
                 <div class="ritual-step">
                     <div class="step-badge">3</div>
-                    <div class="step-title">Drenagem TÃ¡til</div>
-                    <div class="step-desc">Massagem "I Love You" e vestimenta de algodÃ£o.</div>
+                    <div class="step-title">Drenagem Tátil</div>
+                    <div class="step-desc">Massagem "I Love You" e vestimenta de algodão.</div>
                 </div>
                 <div class="ritual-step">
                     <div class="step-badge">4</div>
                     <div class="step-title">Ancoragem</div>
-                    <div class="step-desc">Mama de despedida + RuÃ­do Branco + BerÃ§o.</div>
+                    <div class="step-desc">Mama de despedida + Ruído Branco + Berço.</div>
                 </div>
             </div>
         </div>
@@ -162,9 +411,9 @@
             <table class="tracker-table" id="night-table">
                 <thead>
                     <tr>
-                        <th style="width: 20%;">HorÃ¡rio</th>
-                        <th style="width: 40%;">ProvÃ¡vel Causa</th>
-                        <th style="width: 40%;">AÃ§Ã£o Tomada</th>
+                        <th style="width: 20%;">Horário</th>
+                        <th style="width: 40%;">Provável Causa</th>
+                        <th style="width: 40%;">Ação Tomada</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -180,7 +429,7 @@
 
             <div class="info-box" style="margin-top: 2rem;">
                 <i class="fas fa-info-circle"></i>
-                <p>Ao notar despertares nos mesmos horÃ¡rios todas as noites, vocÃª encontrarÃ¡ lacunas na rotina diurna que precisam de ajuste.</p>
+                <p>Ao notar despertares nos mesmos horários todas as noites, você encontrará lacunas na rotina diurna que precisam de ajuste.</p>
             </div>
         </div>
 
@@ -188,28 +437,28 @@
         <div class="section-card">
             <div class="section-title">
                 <div class="section-icon"><i class="fas fa-edit"></i></div>
-                4. ObservaÃ§Ãµes de Desenvolvimento
+                4. Observações de Desenvolvimento
             </div>
             <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); border-radius: 20px; padding: 1.5rem; min-height: 120px;" contenteditable="true">
-                <span style="color: rgba(255,255,255,0.2);">AnotaÃ§Ãµes sobre Saltos, Dentinhos, Vacinas ou Novas Conquistas do dia...</span>
+                <span style="color: rgba(255,255,255,0.2);">Anotações sobre Saltos, Dentinhos, Vacinas ou Novas Conquistas do dia...</span>
             </div>
         </div>
 
         <div class="action-footer">
             <button class="btn-pdf" onclick="window.print()">
-                <i class="fas fa-file-pdf"></i> Imprimir Planejador DiÃ¡rio (PDF)
+                <i class="fas fa-file-pdf"></i> Imprimir Planejador Diário (PDF)
             </button>
             <button class="btn-pdf" onclick="clearData()" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); box-shadow: none; margin-top: 1rem; font-size: 0.9rem; padding: 0.8rem 2rem;">
                 <i class="fas fa-trash-alt"></i> Limpar Dados do Dia
             </button>
             <footer>
-                &copy; 2024 MamÃ£e no Comando. ConteÃºdo exclusivo para alunas do MÃ©todo CÃ³digo do Sono Infantil.
+                &copy; 2024 Mamãe no Comando. Conteúdo exclusivo para alunas do Método Código do Sono Infantil.
             </footer>
         </div>
     </div>
 
     <script>
-        // FunÃ§Ã£o para adicionar nova linha dinamicamente
+        // Função para adicionar nova linha dinamicamente
         function addRow(tableId) {
             const table = document.getElementById(tableId).getElementsByTagName('tbody')[0];
             const newRow = table.insertRow();
@@ -226,7 +475,7 @@
             saveAllData(); // Salva a estrutura nova
         }
 
-        // FunÃ§Ã£o para salvar dados automaticamente
+        // Função para salvar dados automaticamente
         function saveAllData() {
             const data = {
                 napsCount: document.getElementById('nap-table').getElementsByTagName('tbody')[0].rows.length,
@@ -242,13 +491,13 @@
             localStorage.setItem('planejadorData_6538_v2', JSON.stringify(data));
         }
 
-        // FunÃ§Ã£o para carregar dados ao abrir a pÃ¡gina
+        // Função para carregar dados ao abrir a página
         function loadSavedData() {
             const savedData = localStorage.getItem('planejadorData_6538_v2');
             if (savedData) {
                 const data = JSON.parse(savedData);
                 
-                // Ajusta o nÃºmero de linhas primeiro
+                // Ajusta o número de linhas primeiro
                 const napTable = document.getElementById('nap-table').getElementsByTagName('tbody')[0];
                 const nightTable = document.getElementById('night-table').getElementsByTagName('tbody')[0];
 
@@ -267,7 +516,7 @@
             }
         }
 
-        // FunÃ§Ã£o para limpar tudo
+        // Função para limpar tudo
         function clearData() {
             if (confirm('Deseja realmente apagar todos os registros do dia?')) {
                 localStorage.removeItem('planejadorData_6538_v2');
@@ -289,4 +538,3 @@
 </body>
 
 </html>
-
